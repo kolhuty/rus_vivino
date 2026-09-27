@@ -1,0 +1,429 @@
+
+:root {
+    --color-blonde: rgba(248, 242, 235, 0.75);  /* #F8F2EB */
+    --color-light-blonde: #FDF9ED;
+    --color-light-red: #CF2322;
+    --color-medium-red: #B62C2E;
+    --color-dark-red: #8E3C42;
+    --color-light-grey: #F7F7F7;
+    --color-dark-grey: #847e78;
+
+    --font-header: "Playfair Display", serif;
+    --font-paragraph: "Inter", sans-serif;
+}
+
+html, body {
+    padding: 0;
+    margin: 0;
+}
+
+
+@media (max-width: 800px) {
+    #navbar, #footer-nav-bar {
+        margin: 25px 15px 25px 15px;
+        padding: 10px 22px 10px 22px;
+    }
+
+    #grid-wrapper {
+        display: contents;
+    }
+
+    #main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        row-gap: 30px;
+    }
+
+    #footer {
+        flex-direction: column;
+        margin: 90px auto;
+        padding: 30px 0;
+    }
+}
+
+
+@media (min-width: 800px) {
+    #navbar, #footer-nav-bar {
+        margin: 25px 40px 25px 40px;
+        padding: 10px 25px 10px 25px;
+    }
+
+    #grid-wrapper {
+        grid-area: left-column;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #main {
+        display: grid;
+        grid-template-columns: 30% 70%;
+        grid-template-areas: 
+            "left-column right-column";
+        align-items: start;
+        grid-auto-rows: min-content;
+        gap: 20px;
+    }
+
+    #found-wine-card {
+        width: 90%;
+    }
+
+    #see-also {
+        grid-area: right-column;
+    }
+
+    #see-also-container {
+        gap: 20px !important;
+    }
+
+    #footer {
+        flex-direction: row;
+        margin: 140px auto;
+        padding: 80px 0;
+    }
+}
+
+
+.material-symbols-outlined {
+    font-size: 25px;
+    padding: 5px 10px 5px 10px;
+}
+
+
+#navbar {
+    z-index: 999;
+    position: sticky;
+    top: 25px;
+    background-color: var(--color-blonde);
+    backdrop-filter: blur(7px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 1000px;
+}
+
+#top-logo-container {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+}
+
+#top-logo {
+    padding: 0;
+    margin: 0;
+    max-height: 100%; 
+    max-width: 100%;
+}
+
+#nav-buttons {
+    width: 50%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.nav-button {
+    border-radius: 1000px;
+    border: none;
+    cursor: pointer;
+}
+
+#search {
+    margin-right: 5px;
+    color: var(--color-dark-red);
+    background: none;
+}
+
+#menu {
+    margin-left: 5px;
+    color: white;
+    background-color: var(--color-dark-red);
+}
+
+
+/*grid-wrapper {
+
+}*/
+
+#found {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#found-wine {
+    font-family: var(--font-header);
+    font-weight: 400;
+    font-size: 30px;
+}
+
+#found-wine-card {
+    width: 75%;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+}
+
+#found-wine-card-content {
+    width: 100%;
+    background-color: var(--color-light-blonde);
+    border-radius: 25px;
+    font-family: var(--font-paragraph);
+    font-weight: 500 !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px 40px 20px;
+    transition: transform 0.3s ease;
+}
+
+    #found-wine-card-content:hover {
+        transform: scale(1.04);
+    }
+
+#found-wine-card-content > .bottle-slot {
+    height: 228px;
+}
+
+#found-wine-card-content > .bottle-slot > img {
+    max-height: 228px;
+    max-width: 100%;
+}
+
+.bottle-skeleton {
+    height: 228px;
+}
+
+#found-wine-card-content > h4 {
+    margin: 25px 0 0 0;
+    padding: 0;
+    color: black;
+    font-size: 19px;
+    align-self: flex-start;
+    font-weight: 500;
+}
+
+#found-wine-card-content > p {
+    margin: 0;
+    padding: 0;
+    color: var(--color-dark-grey);
+    font-size: 16px;
+    align-self: flex-start;
+}
+
+#sommelier-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 5px;
+    margin-top: 20px;
+    width: 75%;
+}
+
+#sommelier-button {
+    background-color: var(--color-dark-red);
+    border-radius: 15px;
+    text-decoration: none;
+    color: white;
+    font-family: var(--font-paragraph);
+    width: 100%;
+    padding: 10px auto 10px auto;
+    font-weight: 500;
+    font-size: 17px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 8px; 
+    transition: background-color 1s ease;
+}
+
+    #sommelier-button:hover {
+        background-color: var(--color-medium-red);
+    }
+
+#sommelier-content > p {
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-paragraph);
+    font-weight: 400;
+    font-size: 13px;
+    text-align: center;
+}
+
+#see-also {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+#see-also-wine {
+    font-family: var(--font-header);
+    font-weight: 400;
+    font-size: 30px;
+}
+
+#see-also-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.see-also-card-content {
+    background-color: var(--color-light-blonde);
+    border-radius: 25px;
+    font-family: var(--font-paragraph);
+    font-weight: 500 !important;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px 40px 20px;
+    transition: transform 0.3s ease;
+}
+
+    .see-also-card-content:hover {
+        transform: scale(1.04);
+    }
+
+.see-also-card-content > .bottle-slot {
+    height: 170px;
+}
+
+.see-also-card-content > .bottle-slot > img {
+    max-height: 170px;
+    max-width: 100%;
+}
+
+.see-also-card-content > h4 {
+    margin: 25px 0 0 0;
+    padding: 0;
+    color: black;
+    font-size: 13px;
+    align-self: flex-start;
+    font-weight: 500;
+}
+
+.see-also-card-content > p {
+    margin: 0;
+    padding: 0;
+    color: var(--color-dark-grey);
+    font-size: 11px;
+    align-self: flex-start;
+}
+
+
+#footer {
+    border-top: 2px solid var(--color-light-grey);
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+#footer-first {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    row-gap: 15px;
+    font-family: var(--font-paragraph);
+    font-weight: 400;
+    font-size: 15px;
+    color: var(--color-dark-grey);
+}
+
+#footer-first > img {
+    height: 24px;
+    align-self: flex-start;
+}
+
+#footer-first > a {
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+    color: var(--color-dark-grey);
+}
+
+#footer-second {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    column-gap: 15px;
+    font-family: var(--font-paragraph);
+    font-weight: 400;
+    font-size: 15px;
+    color: var(--color-dark-grey);
+}
+
+#footer-second > p {
+    margin: 0;
+    padding: 0;
+    font-size: 9px;
+    text-align: end;
+}
+
+#large-number {
+    font-size: 30px !important;
+    font-weight: 800;
+}
+
+
+#footer-nav-bar {
+    z-index: 1000;
+    position: fixed;
+    bottom: 25px;
+    left: 0;
+    right: 0;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 1000px;
+    backdrop-filter: blur(7px);
+    box-shadow: 0 0 6px 3px rgba(0, 0, 0, 0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#footer-search {
+    color: white;
+    background-color: var(--color-dark-red) !important;
+    padding: 6px 8px;
+}
+
+#footer-camera {
+    color: var(--color-dark-grey);
+    background: none;
+    
+}
+
+#footer-search > span, #footer-camera > span {
+    padding: 0;
+    margin: 0;
+}
+
+#footer-nav-bar > p {
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-paragraph);
+    font-weight: 400;
+    font-size: 13px;
+    text-align: center;
+}
