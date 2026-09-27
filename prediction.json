@@ -1,0 +1,32 @@
+{
+  "status": "matched",
+  "slug": "chateau-de-talu-uroki-frantsuzskogo-sovinon-blan-beloe-suhoe-115",
+  "score": 0.7687658667564392,
+  "margin": 0.008822381496429443,
+  "confidence": null,
+  "top5": [
+    {
+      "slug": "chateau-de-talu-uroki-frantsuzskogo-sovinon-blan-beloe-suhoe-115",
+      "score": 0.7687658667564392
+    },
+    {
+      "slug": "chateau-de-talu-uroki-frantsuzskogo-shardone-beloe-suhoe-124",
+      "score": 0.7599434852600098
+    },
+    {
+      "slug": "chateau-de-talu-uroki-frantsuzskogo-krasnostop-krasnostop-anapskiy-krasnoe-suhoe-145",
+      "score": 0.7503873109817505
+    },
+    {
+      "slug": "chateau-de-talu-uroki-frantsuzskogo-merlo-krasnoe-suhoe-147",
+      "score": 0.7495537996292114
+    },
+    {
+      "slug": "chateau-de-talu-uroki-frantsuzskogo-sira-krasnoe-suhoe-13",
+      "score": 0.7418012619018555
+    }
+  ],
+  "model_version": "siglip2-baseline-v1",
+  "catalog_version": "catalog-v1",
+  "latency_ms": 215.93
+}
