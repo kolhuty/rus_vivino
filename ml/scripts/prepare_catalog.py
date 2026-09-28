@@ -1,11 +1,10 @@
-"""Convert the local CSV and Strapi images into the specification's catalog."""
+"""Convert the scraped CSV and its local images into the retrieval catalog."""
 import argparse
 import csv
 import hashlib
 import json
-import re
 import sys
-from collections import Counter
+from collections import defaultdict
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
@@ -14,29 +13,43 @@ from wine_recognition.images import read_image
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--csv", type=Path, default=Path("data/dataset_vino.csv"))
-    parser.add_argument("--images", type=Path, default=Path("data/vino"))
+    parser.add_argument("--csv", type=Path, default=Path("catalog_scraped.csv"))
+    parser.add_argument("--images", type=Path, default=Path("data/scraped/images"))
     parser.add_argument("--output", type=Path, default=Path("data/catalog.jsonl"))
     args = parser.parse_args()
-    rows = list(csv.DictReader(args.csv.open(encoding="utf-8-sig", newline="")))
-    counts = Counter(row["Slug"] for row in rows)
-    files = {}
+    with args.csv.open(encoding="utf-8-sig", newline="") as csv_file:
+        reader = csv.DictReader(csv_file)
+        required = {"slug", "image_local"}
+        missing_columns = required.difference(reader.fieldnames or ())
+        if missing_columns:
+            raise SystemExit(f"Missing CSV columns: {', '.join(sorted(missing_columns))}")
+        rows = list(reader)
+    rows_by_slug = defaultdict(list)
+    for row in rows:
+        rows_by_slug[row["slug"].strip()].append(row)
+
+    files_by_name = defaultdict(list)
     for path in args.images.rglob("*"):
         if path.is_file():
-            stem = re.sub(r"^(thumbnail_|small_|medium_|large_)", "", path.stem)
-            stem = re.sub(r"_[0-9a-f]{10}$", "", stem)
-            files.setdefault(stem, []).append(path)
+            files_by_name[path.name].append(path)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     references = args.output.parent / "references"
     references.mkdir(exist_ok=True)
     report, catalog, manifest = [], [], []
     pixel_hashes = {}
-    for row in rows:
-        slug = row["Slug"]
-        if not slug or counts[slug] != 1:
-            report.append({"slug": slug, "problem": "empty_or_duplicate_slug"})
+    for slug, duplicate_rows in rows_by_slug.items():
+        if not slug:
+            report.append({"slug": slug, "problem": "empty_slug"})
             continue
-        candidates = files.get(Path(row["Название фото"]).stem, [])
+        # Collapse exact duplicate records while rejecting conflicting slug records.
+        signatures = {tuple(sorted(row.items())) for row in duplicate_rows}
+        if len(signatures) != 1:
+            report.append({"slug": slug, "problem": "conflicting_duplicate_slug"})
+            continue
+        row = duplicate_rows[0]
+        image_local = row["image_local"].strip()
+        photo_name = Path(image_local.replace("\\", "/")).name
+        candidates = files_by_name.get(photo_name, []) if photo_name else []
         if len(candidates) != 1:
             report.append({"slug": slug, "problem": "missing_or_ambiguous_image",
                            "candidates": [str(p) for p in candidates]})
@@ -56,9 +69,10 @@ def main():
                            "other_slug": pixel_hashes[digest]})
         pixel_hashes[digest] = slug
         catalog.append({"slug": slug, "reference_images": [f"references/{filename}"],
-                        "name": row.get("Название вина"), "producer": row.get("Винодельня")})
+                        "name": row.get("name"), "producer": row.get("producer")})
         manifest.append({"slug": slug, "source_path": str(source.resolve()),
-                         "source_csv": str(args.csv.resolve()), "source_url": None})
+                         "source_csv": str(args.csv.resolve()),
+                         "source_url": row.get("image_url") or None})
     for path, records in [(args.output, catalog),
                           (args.output.with_name("catalog_report.jsonl"), report),
                           (args.output.with_name("sources.jsonl"), manifest)]:

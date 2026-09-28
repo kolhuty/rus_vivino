@@ -20,11 +20,17 @@ class SearchIndex:
         self.metadata = metadata
 
     def search(self, query: np.ndarray, k: int = 5) -> list[dict]:
-        query = np.asarray(query, dtype=np.float32).reshape(-1)
-        norm = np.linalg.norm(query)
-        if not np.isfinite(query).all() or norm <= 0:
-            raise ValueError("Invalid query embedding")
-        scores = self.vectors @ (query / norm)
+        return self.search_many(np.asarray(query).reshape(1, -1), k)
+
+    def search_many(self, queries: np.ndarray, k: int = 5) -> list[dict]:
+        """Rank slugs by their best score across full-frame and cropped views."""
+        queries = np.asarray(queries, dtype=np.float32)
+        if queries.ndim != 2 or not len(queries):
+            raise ValueError("Invalid query embeddings")
+        norms = np.linalg.norm(queries, axis=1, keepdims=True)
+        if not np.isfinite(queries).all() or (norms <= 0).any():
+            raise ValueError("Invalid query embeddings")
+        scores = (self.vectors @ (queries / norms).T).max(axis=1)
         # Multiple reference images contribute their maximum similarity per slug.
         best = {}
         for slug, score in zip(self.slugs, scores):
@@ -59,6 +65,6 @@ def build_index(catalog: Path, encoder, batch_size: int, catalog_version: str) -
         print(f"Indexed {min(start + batch_size, len(references))}/{len(references)}")
     return SearchIndex(np.concatenate(batches), [ref.slug for ref in references], {
         "model_id": encoder.model_id, "revision": encoder.revision,
-        "model_version": "siglip2-baseline-v1", "catalog_version": catalog_version,
+        "model_version": encoder.model_version, "catalog_version": catalog_version,
         "score": "cosine similarity; maximum over references per slug",
     })

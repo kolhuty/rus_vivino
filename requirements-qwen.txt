@@ -1,0 +1,4 @@
+-r requirements.txt
+sentence-transformers>=5.2,<6
+qwen-vl-utils>=0.0.14,<1
+sentencepiece>=0.2,<1

@@ -1,0 +1,49 @@
+{
+  "status": "matched",
+  "slug": "chateau-de-talu-uroki-frantsuzskogo-krasnostop-krasnostop-anapskiy-krasnoe-suhoe-145",
+  "score": 0.7741269469261169,
+  "margin": 0.009814918041229248,
+  "confidence": null,
+  "top5": [
+    {
+      "slug": "chateau-de-talu-uroki-frantsuzskogo-krasnostop-krasnostop-anapskiy-krasnoe-suhoe-145",
+      "score": 0.7741269469261169
+    },
+    {
+      "slug": "chateau-de-talu-uroki-frantsuzskogo-shardone-beloe-suhoe-124",
+      "score": 0.7643120288848877
+    },
+    {
+      "slug": "chateau-de-talu-uroki-frantsuzskogo-merlo-krasnoe-suhoe-147",
+      "score": 0.7452314496040344
+    },
+    {
+      "slug": "chateau-de-talu-uroki-frantsuzskogo-sira-krasnoe-suhoe-13",
+      "score": 0.7405720949172974
+    },
+    {
+      "slug": "chateau-de-talu-uroki-frantsuzskogo-kaberne-fran-krasnoe-suhoe-14",
+      "score": 0.7386196255683899
+    }
+  ],
+  "model_version": "siglip2-baseline-v1",
+  "catalog_version": "catalog-v1",
+  "latency_ms": 1002.11,
+  "localization": {
+    "bottle_count": 8,
+    "bottle_box": [
+      500,
+      399,
+      618,
+      830
+    ],
+    "label_box": [
+      503,
+      502,
+      615,
+      795
+    ],
+    "views_used": 2,
+    "strategy": "bottle+label"
+  }
+}
