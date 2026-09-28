@@ -220,3 +220,5 @@ class LabelLocalizer:
             return Localization(image.copy(), full, None, 0)
         label_box = find_label_box(image, selected.box)
         return Localization(image.crop(label_box.as_list()), label_box, selected.box, len(bottles))
+
+
