@@ -1,6 +1,11 @@
 .venv/
 __pycache__/
-artifacts/
-prediction.json
 .idea/
 data/
+.env
+data/vino/
+data/references/
+data/artifacts/
+data/public_test/
+data/dataset_vino.csv
+data/scrape_queue.jsonl
