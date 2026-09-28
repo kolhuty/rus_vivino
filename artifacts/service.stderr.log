@@ -1,0 +1,8 @@
+INFO:     Started server process [16868]
+INFO:     Waiting for application startup.
+[transformers] Model config: bos_token_id must be `None` or an integer within the vocabulary (between 0 and 31999), got 49406. This may result in unexpected behavior.
+[transformers] Model config: eos_token_id must be `None` or an integer within the vocabulary (between 0 and 31999), got 49407. This may result in unexpected behavior.
+Loading weights:   0%|          | 0/408 [00:00<?, ?it/s]Loading weights:   9%|8         | 35/408 [00:00<00:01, 329.39it/s]Loading weights:  22%|##2       | 90/408 [00:00<00:00, 444.10it/s]Loading weights:  36%|###5      | 146/408 [00:00<00:00, 481.94it/s]Loading weights: 100%|##########| 408/408 [00:00<00:00, 1002.78it/s]
+Loading weights:   0%|          | 0/212 [00:00<?, ?it/s]Loading weights:  55%|#####5    | 117/212 [00:00<00:00, 1130.99it/s]Loading weights: 100%|##########| 212/212 [00:00<00:00, 1996.62it/s]
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
