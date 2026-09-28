@@ -10,7 +10,7 @@ ML_BASE_URL = os.getenv("ML_BASE_URL", "http://127.0.0.1:8001")
 ML_TIMEOUT = int(os.getenv("ML_TIMEOUT", "30"))
 
 _default_data_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "data"))
-DATA_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "data"))
+DATA_DIR = os.path.abspath(os.getenv("DATA_DIR", _default_data_dir))
 
 
 # image parser settings

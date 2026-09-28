@@ -53,6 +53,11 @@ def _display_image_url(slug: str, refs: list, image_base: str):
     source = _source_images.get(slug)
     if source:
         return f"{image_base}/{source}"
+    scraped = os.path.join(DATA_DIR, "scraped", "images")
+    if os.path.isdir(scraped):
+        for ext in (".webp", ".png", ".jpg", ".jpeg"):
+            if os.path.isfile(os.path.join(scraped, slug + ext)):
+                return f"{image_base}/scraped/images/{slug}{ext}"
     vino = os.path.join(DATA_DIR, "vino")
     if os.path.isdir(vino):
         for name in sorted(os.listdir(vino)):

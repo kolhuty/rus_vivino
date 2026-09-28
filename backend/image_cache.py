@@ -39,6 +39,12 @@ def _ref_path(slug: str) -> str:
 
 # finds an image (firstly: a png, lastly: raw file from vino/ dir)
 def _cached_path(slug: str) -> Optional[str]:
+    scraped = os.path.join(DATA_DIR, "scraped", "images")
+    for ext in (".webp", ".png", ".jpg", ".jpeg"):
+        candidate = os.path.join(scraped, slug + ext)
+        if os.path.isfile(candidate) and os.path.getsize(candidate) > 0:
+            return candidate
+
     ref = _ref_path(slug)
     if os.path.exists(ref) and os.path.getsize(ref) > 0:
         return ref

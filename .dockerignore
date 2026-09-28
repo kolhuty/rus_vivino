@@ -1,0 +1,13 @@
+.git
+.idea
+.venv
+**/__pycache__
+**/*.pyc
+frontend/node_modules
+frontend/dist
+artifacts/*.log
+data/**
+!data/catalog.jsonl
+!data/scraped/
+!data/scraped/images/
+!data/scraped/images/**
