@@ -17,7 +17,7 @@ DATA_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "data")
 SITE_BASE_URL = os.getenv("SITE_BASE_URL", "https://vino-svoe.ru")
 
 # true / flase either lets the algorithm to scrape images from the website or prohibits it and demands loading from local cache 
-ALLOW_ON_DEMAND_FETCH = os.getenv("ALLOW_ON_DEMAND_FETCH", "true").lower() == "true"
+ALLOW_ON_DEMAND_FETCH = os.getenv("ALLOW_ON_DEMAND_FETCH", "false").lower() == "true"
 
 # parsing timeout in seconds
 FETCH_DEADLINE = int(os.getenv("FETCH_DEADLINE", "10"))

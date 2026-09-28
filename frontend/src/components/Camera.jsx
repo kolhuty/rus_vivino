@@ -70,10 +70,15 @@ function Camera() {
     return (
         <>
             <div id="camera-hint-container">
-                <p id="camera-hint">Наведите камеру на этикетку бутылки российского производителя</p>
+                <p id="camera-hint">
+                    {cameraError || "Поместите бутылку внутрь рамки, этикеткой к камере"}
+                </p>
             </div>
             
-            <video ref={videoRef} id="camera-video" autoPlay muted playsInline />
+            <div id="camera-preview">
+                <video ref={videoRef} id="camera-video" autoPlay muted playsInline />
+                <div id="camera-target" aria-hidden="true" />
+            </div>
             
             <div id="camera-controls-container">
                 <button
