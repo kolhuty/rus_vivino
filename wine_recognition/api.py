@@ -14,6 +14,8 @@ async def lifespan(app: FastAPI):
     app.state.recognizer = await run_in_threadpool(
         WineRecognizer.load, Path(os.getenv("WINE_INDEX", "artifacts/index.npz")),
         os.getenv("WINE_DEVICE", "auto"),
+        os.getenv("WINE_LOCALIZER", "1").lower() not in {"0", "false", "no"},
+        os.getenv("WINE_DETECTOR_MODEL") or None,
     )
     yield
 
