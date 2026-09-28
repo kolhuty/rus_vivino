@@ -1,0 +1,6 @@
+INFO:     127.0.0.1:5080 - "POST /v1/predict HTTP/1.1" 200 OK
+INFO:     127.0.0.1:2512 - "GET /docs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:2512 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8330 - "GET /docs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8330 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8044 - "POST /v1/eval/predict HTTP/1.1" 200 OK
