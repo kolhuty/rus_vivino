@@ -46,6 +46,32 @@ html, body {
     margin: 0;
 }
 
+#camera-preview {
+    position: relative;
+    width: 100%;
+    max-width: 700px;
+    overflow: hidden;
+}
+
+#camera-video {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+#camera-target {
+    position: absolute;
+    left: 21%;
+    top: 7%;
+    width: 58%;
+    height: 86%;
+    box-sizing: border-box;
+    border: 3px solid rgba(255, 255, 255, 0.9);
+    border-radius: 24px;
+    box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.18);
+    pointer-events: none;
+}
+
 #camera-controls-container {
     width: 100%;
     max-width: 450px;

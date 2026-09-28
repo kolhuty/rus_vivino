@@ -17,7 +17,7 @@ function Loading({ result }) {
 
     return (
         <div id="loader-container">
-            <img src={`../../public/assets/logo-loading-${loaderInd % 5 + 1}.svg`} />
+            <img src={`/assets/logo-loading-${loaderInd % 5 + 1}.svg`} alt="" />
             <p>Загрузка...</p>
         </div>        
     )

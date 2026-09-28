@@ -7,6 +7,8 @@ import sys
 from collections import defaultdict
 from pathlib import Path
 
+from PIL import Image, ImageOps
+
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from wine_recognition.images import read_image
 
@@ -59,7 +61,12 @@ def main():
             image = read_image(source, query=False)
             digest = hashlib.sha256(image.tobytes() + str(image.size).encode()).hexdigest()
             filename = hashlib.sha256(slug.encode()).hexdigest() + ".png"
-            image.save(references / filename)
+            # The RGB copy is used for retrieval, but display assets must retain
+            # the source alpha channel instead of baking transparent pixels into
+            # an opaque grey background.
+            with Image.open(source) as display_image:
+                display_image.load()
+                ImageOps.exif_transpose(display_image).save(references / filename)
             image.close()
         except ValueError as exc:
             report.append({"slug": slug, "problem": str(exc)})

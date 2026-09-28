@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { imageUrl } from "../api.js";
 
 
-function BottleImage({ slug, alt = "" }) {
+function BottleImage({ slug, src, alt = "" }) {
     const [state, setState] = useState("loading");  // loading | ready | error
     const [loaderInd, setLoaderInd] = useState(0);
 
@@ -20,14 +20,14 @@ function BottleImage({ slug, alt = "" }) {
     return (
         <div className={`bottle-slot ${state}`}>
             {state === "loading" && <div className="bottle-skeleton">
-                <img src={`../../public/assets/logo-loading-${loaderInd % 5 + 1}.svg`} />
+                <img src={`/assets/logo-loading-${loaderInd % 5 + 1}.svg`} alt="" />
             </div>} 
             {state === "error" ? 
             (
-                <img src="../../public/assets/bottle-placeholder.png" alt={alt} className="bottle-img" />
+                <img src="/assets/bottle-placeholder.png" alt={alt} className="bottle-img" />
             ) : (
                 <img
-                    src={imageUrl(slug)}
+                    src={src || imageUrl(slug)}
                     alt={alt}
                     style={{ visibility: state === "ready" ? "visible" : "hidden" }}
                     onLoad={() => setState("ready")}

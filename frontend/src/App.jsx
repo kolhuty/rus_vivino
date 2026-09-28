@@ -2,7 +2,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Camera from './components/Camera.jsx'
-import WineCard from './components/WineCard.jsx'
 import Sommelier from './components/Sommelier.jsx'
 import './styles/App.css'
 

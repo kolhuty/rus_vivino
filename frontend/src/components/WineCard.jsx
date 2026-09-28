@@ -10,7 +10,7 @@ function WineCard({ data }) {
     const slug = main.slug;
     let link = slug;
 
-    if ( !(/(?<!\d)20\d{2}(?!\d)/.test(data.name)) ) {  // if year (20XX) is NOT present in the wine name
+    if ( !(/(?<!\d)20\d{2}(?!\d)/.test(main.name)) ) {  // if year (20XX) is NOT present in the wine name
         link = slug.split("-").filter((word) => !/^20\d{2}$/.test(word)).join("-");
     }  // so basically we check if year (year type 20XX) is not in the wine name and then remove the year from the link (because sometimes year is present in the slug but not the wine name) 
 
@@ -18,7 +18,7 @@ function WineCard({ data }) {
         <>
         <div id="navbar">
             <a href="https://vino-svoe.ru/" id="top-logo-container">
-                <img src="../../public/assets/logo-full.svg" id="top-logo"/>
+                <img src="/assets/logo-full.svg" id="top-logo"/>
             </a>
             <div id="nav-buttons">
                 <button id="search" className="nav-button">
@@ -35,7 +35,12 @@ function WineCard({ data }) {
                     <h1 id="found-wine">Найденное вино</h1>
                     <a id="found-wine-card" href={`https://vino-svoe.ru/wines/${link}`}>
                         <div id="found-wine-card-content">
-                            <BottleImage slug={slug} alt={slug || ""} />
+                            <BottleImage
+                                key={main.image_url || slug}
+                                slug={slug}
+                                src={main.image_url}
+                                alt={main.name || slug || ""}
+                            />
                             <h4>{main.name}</h4>
                             <p>{main.producer}</p>
                         </div>
@@ -43,7 +48,7 @@ function WineCard({ data }) {
                 </div>
                 <div id="sommelier-content">
                     <a href="/sommelier" id="sommelier-button">
-                        <img src="../../public/assets/star-particles.svg" />
+                        <img src="/assets/star-particles.svg" alt="" />
                         <p>Цифровой сомелье</p>
                     </a>
                     <p>Узнайте, какое вино лучше всего подойдёт под ваши блюда или предпочтения</p>
@@ -63,7 +68,12 @@ function WineCard({ data }) {
                         <a key={id} href={
                             `https://vino-svoe.ru/wines/${wineLink}`
                         } className="see-also-card-content">
-                            <BottleImage slug={wine.slug} alt={wine.name || ""} />
+                            <BottleImage
+                                key={wine.image_url || wine.slug}
+                                slug={wine.slug}
+                                src={wine.image_url}
+                                alt={wine.name || ""}
+                            />
                             <h4>{wine.name}</h4>
                             <p>{wine.producer}</p>
                         </a>
@@ -81,7 +91,7 @@ function WineCard({ data }) {
                 </a>
                 <a href="https://www.rshb.ru/pd-policy">Политика обработки персональных данных</a>
                 <p>© Своё Вино, Россельхозбанк</p>
-                <img src="../../public/assets/rshb-logo.svg" />
+                <img src="/assets/rshb-logo.svg" alt="Россельхозбанк" />
             </div>
             <div id="footer-second">
                 <p id="large-number">18+</p>

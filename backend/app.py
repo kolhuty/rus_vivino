@@ -143,7 +143,13 @@ def image_rel(rel):
     if not os.path.exists(full):
         return jsonify({"error": "not found"}), 404
 
-    resp = send_from_directory(config.DATA_DIR, rel)
+    mime, _ = guess_type(full)
+    if not mime or mime == "application/octet-stream":
+        ext = os.path.splitext(full)[1].lower()
+        mime = {".webp": "image/webp", ".png": "image/png",
+                ".jpg": "image/jpeg", ".jpeg": "image/jpeg"}.get(ext)
+
+    resp = send_from_directory(config.DATA_DIR, rel, mimetype=mime)
     resp.cache_control.public = True
     resp.cache_control.max_age = 7 * 24 * 3600
 
