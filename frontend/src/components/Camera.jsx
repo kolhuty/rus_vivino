@@ -22,7 +22,7 @@ function Camera() {
                 stream = await navigator.mediaDevices.getUserMedia({
                     audio: false,
                     video: {
-                        facingMode: { ideal: "environment" },  // задняя камера
+                        facingMode: { ideal: "environment" },  // main camera
                         width: { ideal: 1920 },
                         height: { ideal: 1080 },
                     },
@@ -34,7 +34,7 @@ function Camera() {
                 }
                 setReady(true);
             } catch {
-                setCameraError("Камера недоступна. Загрузите фото из галереи.");
+                setCameraError("Камера недоступна. Загрузите фото из галереи");
             }
         }
 
@@ -68,34 +68,43 @@ function Camera() {
     }
 
     return (
-        <div className="camera-screen">
-            <video ref={videoRef} className="camera-video" autoPlay muted playsInline />
-
-            <div className="camera-hint">
-                Наведите камеру на этикетку бутылки российского производителя
+        <>
+            <div id="camera-hint-container">
+                <p id="camera-hint">Наведите камеру на этикетку бутылки российского производителя</p>
             </div>
-
-            <div className="camera-sheet">
-                <button className="round-btn" aria-label="Назад">←</button>
+            
+            <video ref={videoRef} id="camera-video" autoPlay muted playsInline />
+            
+            <div id="camera-controls-container">
                 <button
-                    className="shutter-btn"
+                    id="back-btn" 
+                    className="control-buttons" 
+                    aria-label="Назад" 
+                    onClick={() => window.location.href="https://vino-svoe.ru"}
+                >
+                    <span className="material-symbols-outlined">arrow_back</span>
+                </button>
+                <button
+                    id="shutter-btn"
+                    className="control-buttons" 
                     onClick={takePhoto}
                     disabled={!ready}
                     aria-label="Сделать снимок"
-                />
+                >
+                    <span className="material-symbols-outlined">photo_camera</span>
+                </button>
                 <button
-                    className="round-btn"
+                    id="gallery-btn"
+                    className="control-buttons" 
                     onClick={() => fileRef.current.click()}
                     aria-label="Из галереи"
                 >
-                    🖼
+                    <span className="material-symbols-outlined">imagesmode</span>
                 </button>
             </div>
-
+    
             <input ref={fileRef} type="file" accept="image/*" hidden onChange={onFilePick} />
-
-            {cameraError && <div className="camera-error">{cameraError}</div>}
-        </div>
+        </>
     );
 }
 

@@ -8,24 +8,35 @@ import { recognize } from "../api.js";
 
 
 function SearchResults({ photo }) {
+    /*
+    const [result, setResult] = useState(null);
+    const [error, setError] = useState(null);
+    
+    if (error) return <div className="search-error">{error}</div>;
+    if (!result) return <Loading result={result} />;
+    
+    return <WineCard data={result} />;
+    */
+
+
+
+
+    
     const [result, setResult] = useState(null);
     const [error, setError] = useState(null);
 
 
-
-
     const MOCK = {
         status: "matched",
-        main: { slug: "ulybka-vetra-kaberne-sovinon", name: "Кокур сухое", producer: "Кокур", image_url: "" },
+        main: { slug: "petrouchka", name: "Кокур сухое", producer: "Кокур", image_url: "" },
         others: [
-            { slug: "muskat-ottonel-gusev", name: "Рислинг", producer: "Фанагория", image_url: "" },
-            { slug: "yaiyla-vermentino-orange", name: "Рислинг", producer: "Абрау-Дюрсо", image_url: "" },
+            { slug: "golubitskoe-estate-chardonnay", name: "Рислинг", producer: "Фанагория", image_url: "" },
+            { slug: "roze-premium", name: "Рислинг", producer: "Абрау-Дюрсо", image_url: "" },
+            { slug: "krymskij-blend", name: "Рислинг", producer: "Абрау-Дюрсо", image_url: "" },
         ],
     };
     if (!result) return <WineCard data={MOCK} />;
-
-
-
+    
 
     useEffect(() => {
         let cancelled = false;
@@ -43,6 +54,7 @@ function SearchResults({ photo }) {
     if (!result) return <Loading />;
     
     return <WineCard data={result} />;
+    
 }
 
 

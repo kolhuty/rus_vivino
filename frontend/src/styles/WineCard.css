@@ -1,17 +1,4 @@
 
-:root {
-    --color-blonde: rgba(248, 242, 235, 0.75);  /* #F8F2EB */
-    --color-light-blonde: #FDF9ED;
-    --color-light-red: #CF2322;
-    --color-medium-red: #B62C2E;
-    --color-dark-red: #8E3C42;
-    --color-light-grey: #F7F7F7;
-    --color-dark-grey: #847e78;
-
-    --font-header: "Playfair Display", serif;
-    --font-paragraph: "Inter", sans-serif;
-}
-
 html, body {
     padding: 0;
     margin: 0;
@@ -20,7 +7,7 @@ html, body {
 
 @media (max-width: 800px) {
     #navbar, #footer-nav-bar {
-        margin: 25px 15px 25px 15px;
+        margin: 25px 10px 25px 10px;
         padding: 10px 22px 10px 22px;
     }
 
@@ -44,11 +31,15 @@ html, body {
 
 
 @media (min-width: 800px) {
+    html, body {
+        overflow-x: hidden;
+    }
+    
     #navbar, #footer-nav-bar {
         margin: 25px 40px 25px 40px;
         padding: 10px 25px 10px 25px;
     }
-
+    
     #grid-wrapper {
         grid-area: left-column;
         display: flex;
@@ -59,12 +50,13 @@ html, body {
 
     #main {
         display: grid;
-        grid-template-columns: 30% 70%;
+        grid-template-columns: 40% 60%;
         grid-template-areas: 
             "left-column right-column";
         align-items: start;
         grid-auto-rows: min-content;
         gap: 20px;
+        width: 100%;
     }
 
     #found-wine-card {
@@ -76,7 +68,7 @@ html, body {
     }
 
     #see-also-container {
-        gap: 20px !important;
+        gap: 30px !important;
     }
 
     #footer {
@@ -97,6 +89,8 @@ html, body {
     z-index: 999;
     position: sticky;
     top: 25px;
+    width: 95%;
+    box-sizing: border-box;
     background-color: var(--color-blonde);
     backdrop-filter: blur(7px);
     display: flex;
@@ -194,6 +188,9 @@ html, body {
 
 #found-wine-card-content > .bottle-slot {
     height: 228px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #found-wine-card-content > .bottle-slot > img {
@@ -203,6 +200,9 @@ html, body {
 
 .bottle-skeleton {
     height: 228px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #found-wine-card-content > h4 {
@@ -250,7 +250,7 @@ html, body {
 }
 
     #sommelier-button:hover {
-        background-color: var(--color-medium-red);
+        background-color: var(--color-faint-red);
     }
 
 #sommelier-content > p {
@@ -304,6 +304,9 @@ html, body {
 
 .see-also-card-content > .bottle-slot {
     height: 170px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .see-also-card-content > .bottle-slot > img {
@@ -331,7 +334,7 @@ html, body {
 
 #footer {
     border-top: 2px solid var(--color-light-grey);
-    width: 90%;
+    width: 95%;
     display: flex;
     justify-content: space-between;
     align-items: center;

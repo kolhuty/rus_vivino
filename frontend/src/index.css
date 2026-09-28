@@ -1,0 +1,15 @@
+
+:root {
+    --color-blonde: rgba(248, 242, 235, 0.75);  /* #F8F2EB */
+    --color-dark-blonde: rgba(248, 242, 235, 0.85);  /* #F8F2EB */
+    --color-light-blonde: #FDF9ED;
+    --color-light-red: #CF2322;
+    --color-medium-red: #B62C2E;
+    --color-dark-red: #8E3C42;
+    --color-faint-red: #C0494F;
+    --color-light-grey: #F7F7F7;
+    --color-dark-grey: #847e78;
+
+    --font-header: "Playfair Display", serif;
+    --font-paragraph: "Inter", sans-serif;
+}
