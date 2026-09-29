@@ -2,13 +2,9 @@
 const API_BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
 const API = `${API_BASE}/api/v1`;
 
-const GITHUB_USER = import.meta.env.VITE_GITHUB_USER;
-const GITHUB_REPO = import.meta.env.VITE_GITHUB_REPO;
-const GITHUB_BRANCH = import.meta.env.VITE_GITHUB_BRANCH;
-const JSDELIVR_BASE = `https://cdn.jsdelivr.net/gh/${GITHUB_USER}/${GITHUB_REPO}@${GITHUB_BRANCH}`;
 
 export function imageUrl(slug) {
-  return `${JSDELIVR_BASE}/data/vino/${slug}.webp`;
+  return `${API_BASE}/photos/${slug}.webp`;
 }
 
 // main recognize function
@@ -28,7 +24,6 @@ export async function recognize(imageFile) {
     return response.json();
 }
 
-
 // wine card for frontend
 export async function getWine(slug) {
     const response = await fetch(`${API}/wines/${slug}`);
@@ -39,7 +34,6 @@ export async function getWine(slug) {
 
     return response.json();
 }
-
 
 // backend health check
 export async function isBackendAvailable() {
