@@ -1,7 +1,5 @@
 import json
-import sys
 import tempfile
-import types
 import unittest
 from unittest.mock import patch
 from io import BytesIO
@@ -11,7 +9,7 @@ import numpy as np
 from PIL import Image
 
 from wine_recognition.catalog import load_catalog
-from wine_recognition.encoder import QwenVlEncoder, create_encoder
+from wine_recognition.encoder import create_encoder
 from wine_recognition.images import InvalidImage, read_image
 from wine_recognition.index import SearchIndex
 from wine_recognition.localizer import (
@@ -21,35 +19,10 @@ from wine_recognition.service import WineRecognizer
 
 
 class BaselineTests(unittest.TestCase):
-    def test_encoder_factory_selects_model_family(self):
-        with patch("wine_recognition.encoder.QwenVlEncoder") as qwen:
-            create_encoder("Qwen/Qwen3-VL-Embedding-2B", "rev", "cpu")
-            qwen.assert_called_once_with("Qwen/Qwen3-VL-Embedding-2B", "rev", "cpu")
+    def test_encoder_factory_creates_siglip(self):
         with patch("wine_recognition.encoder.SiglipEncoder") as siglip:
             create_encoder("google/siglip2-base-patch16-224", "rev", "cpu")
             siglip.assert_called_once_with("google/siglip2-base-patch16-224", "rev", "cpu")
-
-    def test_qwen_encoder_adapter_without_loading_weights(self):
-        class FakeSentenceTransformer:
-            def __init__(self, model_id, **kwargs):
-                self.model_id = model_id
-                self.kwargs = kwargs
-
-            def encode(self, inputs, **kwargs):
-                self.inputs = inputs
-                self.encode_kwargs = kwargs
-                return np.ones((len(inputs), 3), dtype=np.float32)
-
-        module = types.SimpleNamespace(SentenceTransformer=FakeSentenceTransformer)
-        with patch.dict(sys.modules, {"sentence_transformers": module}):
-            encoder = QwenVlEncoder(device="cpu")
-            images = [Image.new("RGB", (4, 5)), Image.new("RGB", (6, 7))]
-            vectors = encoder.encode(images)
-        self.assertEqual(vectors.shape, (2, 3))
-        self.assertEqual(encoder.model_id, "Qwen/Qwen3-VL-Embedding-2B")
-        self.assertEqual(encoder.model_version, "qwen3-vl-embedding-2b-v1")
-        self.assertEqual([item["image"].size for item in encoder.model.inputs], [(4, 5), (6, 7)])
-        self.assertTrue(encoder.model.encode_kwargs["normalize_embeddings"])
 
     def test_bottle_nearest_image_center_is_selected(self):
         bottles = [
