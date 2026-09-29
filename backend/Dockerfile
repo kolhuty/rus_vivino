@@ -2,7 +2,8 @@ FROM python:3.11-slim
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
-    DATA_DIR=/data
+    DATA_DIR=/data \
+    PYTHONPATH=/app:/app/backend
 
 WORKDIR /app
 
@@ -10,8 +11,6 @@ COPY backend/requirements.txt ./requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY backend/ /app/backend/
-
-ENV PYTHONPATH=/app
 
 EXPOSE 8000
 
