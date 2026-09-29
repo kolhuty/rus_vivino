@@ -23,7 +23,7 @@ set -euo pipefail
 BACKEND_URL="${1:-http://127.0.0.1:8000}"
 ML_URL="${2:-http://ml:8001}"
 
-TEST_IMAGE_B64="UklGRkgAAABXRUJQVlA4IDwAAACQAwCdASpAAEAAPm02mEkkIyKhIggAgA2JaQAAEDdTUAV4hbkAAP71uH+5P0vf//ln/+y3/ZbwgAAAAAA="
+TEST_IMAGE_B64="iVBORw0KGgoAAAANSUhEUgAAAOAAAADgCAIAAACVT/22AAAC0ElEQVR4nO3csU3DYBhF0T8oQ2SSDJCJXFKloEqZiRggk2QL0yMBQiD52j5ngq+4epJly4d5ngdUvSx9AHxHoKQJlDSBkiZQ0gRKmkBJEyhpAiXtOFZoOp2XPmGt7s/HWBULSppASRMoaQIlTaCkCZQ0gZImUNIESppASRMoaat8F7/Jl85/N23xEwULSppASRMoaQIlTaCkCZQ0gZImUNIESppASRMoaQIlTaCkCZQ0gZImUNIESppASRMoaQIlTaCkCZQ0gZImUNIESppASRMoaQIlTaCkCZQ0gZImUNIESppASRMoaQIlTaCkCZQ0gZImUNIESppASRMoaQIlTaCkCZQ0gZImUNIESppASRMoaQIlTaCkCZQ0gZImUNIEStpx7MZ0Oo8NuT8fYwcsKGkCJU2gpAmUtB09JH3y+v42VuV2uY79saCkCZQ0gZImUNIESppASRMoaQIlTaCkCZQ0gZImUNIESppASRMoaQIlTaCkCZQ0gZImUNIESppASRMoaQIlTaCkCZQ0gZImUNIESppASRMoaQIlTaCkCZQ0gZImUNIESppASRMoaQIlTaCkCZQ0gZImUNIESppASRMoaQIlTaCkCZQ0gZImUNIESppASRMoaQIlTaCkCZQ0gZImUNIESppASRMoaQIlTaCkCZQ0gZImUNIESppASRMoaQIlTaCkCZQ0gZImUNIESppASRMoaQIl7Tj26na5Ln0CP7OgpAmUNIGSJlDSdvSQdH8+lj6BX7OgpAmUNIGSJlDSBEqaQEkTKGkCJU2gpAmUNIGSJlDSBEqaQEkTKGkCJU2gpAmUNIGSJlDSBEqaQEkTKGkCJU2gpAmUNIGSJlDSBEqaQEkTKGmb/T/odDovfQL/wIKSJlDSBEqaQEkTKGkCJU2gpAmUNIGSJlDSBEraYZ7npW+AL1lQ0gRKmkBJEyhpAiVNoKQJlDSBMso+AAZUGA84sgK0AAAAAElFTkSuQmCC"
 
 python3 << PYEOF
 import base64, json, sys
@@ -54,12 +54,12 @@ except Exception as e:
     print(f"ML НЕ ОТВЕЧАЕТ (бэк при этом может жить в degraded режиме): {e}")
 
 section("/api/v1/scan (плоский slug, как ждёт скрипт оценки, п.6 ТЗ)")
-r = requests.post(f"{backend_url}/api/v1/scan", files={"image": ("test.webp", image_bytes, "image/webp")}, timeout=30)
+r = requests.post(f"{backend_url}/api/v1/scan", files={"image": ("test.png", image_bytes, "image/png")}, timeout=30)
 r.raise_for_status()
 print(json.dumps(r.json(), indent=2, ensure_ascii=False))
 
 section("/api/v1/recognize (полная карточка для фронта)")
-r = requests.post(f"{backend_url}/api/v1/recognize", files={"image": ("test.webp", image_bytes, "image/webp")}, timeout=30)
+r = requests.post(f"{backend_url}/api/v1/recognize", files={"image": ("test.png", image_bytes, "image/png")}, timeout=30)
 r.raise_for_status()
 print(json.dumps(r.json(), indent=2, ensure_ascii=False))
 

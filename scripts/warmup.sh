@@ -5,7 +5,7 @@
 # а не на первом реальном запросе во время созвона с кейсодержателем.
 #
 # Использование:
-#   ./scripts/warmup.sh [N_запросов] [ML_URL]
+#   ./scripts/warmup.sh [N_запросов] [ML_URL] [путь_к_WebP_JPEG_или_PNG]
 # По умолчанию: 3 запроса, http://127.0.0.1:8001
 
 set -euo pipefail
@@ -13,10 +13,14 @@ cd "$(dirname "$0")/.."
 
 N="${1:-3}"
 ML_URL="${2:-http://127.0.0.1:8001}"
-IMAGE="$(ls data/scraped/images/*.webp 2>/dev/null | head -1 || true)"
+IMAGE="${3:-$(find data/scraped/images -maxdepth 1 -type f \( -iname '*.webp' -o -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' \) 2>/dev/null | sort | head -1 || true)}"
 
 if [ -z "$IMAGE" ]; then
-  echo "Не нашёл фото для прогрева в data/scraped/images/"
+  echo "Не нашёл WebP/JPEG/PNG для прогрева в data/scraped/images/. Укажи путь третьим аргументом."
+  exit 1
+fi
+if [ ! -f "$IMAGE" ]; then
+  echo "Файл не найден: $IMAGE"
   exit 1
 fi
 

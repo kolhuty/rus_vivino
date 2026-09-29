@@ -1,0 +1,32 @@
+{
+  "status": "matched",
+  "slug": "belbek-belbek-merlo-krasnoe-suhoe-129",
+  "score": 0.7733590602874756,
+  "margin": 0.008721351623535156,
+  "confidence": null,
+  "top5": [
+    {
+      "slug": "belbek-belbek-merlo-krasnoe-suhoe-129",
+      "score": 0.7733590602874756
+    },
+    {
+      "slug": "v2r-podnyat-parusa-kaberne-sovinon-krasnoe-suhoe-125",
+      "score": 0.7646377086639404
+    },
+    {
+      "slug": "sira-limitirovannaya-seriya",
+      "score": 0.7642216682434082
+    },
+    {
+      "slug": "merlo-limitirovannaya-seriya",
+      "score": 0.7605113983154297
+    },
+    {
+      "slug": "imenie-sikory-gerts-sikory-kaberne-sovinon-krasnoe-suhoe-14",
+      "score": 0.7564104199409485
+    }
+  ],
+  "model_version": "siglip2-baseline-v1",
+  "catalog_version": "catalog-v1",
+  "latency_ms": 214.92
+}

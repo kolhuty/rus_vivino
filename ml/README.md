@@ -68,7 +68,7 @@ curl.exe -F "image=@C:\photos\wine.jpg" http://127.0.0.1:8001/v1/eval/predict -o
 curl.exe -F "image=@C:\photos\wine.jpg" http://127.0.0.1:8001/v1/predict -o diagnostics.json
 ```
 
-Multipart-поле: `image`; JPEG/PNG, до 15 МиБ и 25 млн пикселей. EXIF-ориентация учитывается.
+Multipart-поле: `image`; JPEG/PNG/WebP, до 15 МиБ и 25 млн пикселей. EXIF-ориентация учитывается.
 Повреждённые изображения возвращают HTTP 400, превышение размера — 413.
 Пустой/повреждённый индекс вызывает ошибку запуска. Модель загружается один раз на процесс.
 Переменные окружения: `WINE_INDEX` (по умолчанию `artifacts/index.npz`) и `WINE_DEVICE`.
