@@ -20,8 +20,8 @@ def read_image(source: bytes | Path, *, query: bool = True) -> Image.Image:
         raise InvalidImage("Image exceeds 15 MB")
     try:
         with Image.open(BytesIO(source)) as image:
-            if query and image.format not in {"JPEG", "PNG"}:
-                raise InvalidImage("Only JPEG and PNG queries are supported")
+            if query and image.format not in {"JPEG", "PNG", "WEBP"}:
+                raise InvalidImage("Only JPEG, PNG and WebP queries are supported")
             if image.width * image.height > MAX_PIXELS:
                 raise InvalidImage("Image exceeds 25 million pixels")
             image.load()

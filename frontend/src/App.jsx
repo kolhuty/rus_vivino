@@ -1,5 +1,5 @@
 
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
 import Camera from './components/Camera.jsx'
 import Sommelier from './components/Sommelier.jsx'

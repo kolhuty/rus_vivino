@@ -68,7 +68,11 @@ def resolve_image(rel: str) -> Path:
 def ask_service(base_url: str, mode: str, image_path: Path, timeout: int):
     """Один запрос. Возвращает (top1, top5, status, server_latency_ms)."""
     with open(image_path, "rb") as f:
-        files = {"image": (image_path.name, f, "image/jpeg")}
+        content_type = {
+            ".jpg": "image/jpeg", ".jpeg": "image/jpeg",
+            ".png": "image/png", ".webp": "image/webp",
+        }.get(image_path.suffix.lower(), "application/octet-stream")
+        files = {"image": (image_path.name, f, content_type)}
 
         if mode == "scan":          # контракт организатора: строго {"slug": ...}
             r = requests.post(f"{base_url}/api/v1/scan", files=files, timeout=timeout)

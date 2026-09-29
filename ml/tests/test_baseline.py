@@ -107,13 +107,12 @@ class BaselineTests(unittest.TestCase):
         self.assertEqual({item["slug"] for item in top}, {"a", "b"})
         self.assertGreater(top[0]["score"], .99)
 
-    def test_corrupt_and_webp_queries_rejected(self):
+    def test_corrupt_query_rejected_and_webp_normalized(self):
         with self.assertRaises(InvalidImage):
             read_image(b"broken")
         buffer = BytesIO()
         Image.new("RGB", (4, 4)).save(buffer, format="WEBP")
-        with self.assertRaises(InvalidImage):
-            read_image(buffer.getvalue())
+        self.assertEqual(read_image(buffer.getvalue()).mode, "RGB")
         self.assertEqual(read_image(buffer.getvalue(), query=False).mode, "RGB")
 
     def test_duplicate_catalog_slugs_rejected(self):
