@@ -2,6 +2,8 @@
 const API_BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
 const API = `${API_BASE}/api/v1`;
 
+console.log("ПРОВЕРКА: API_BASE равен =", API_BASE);
+
 
 export function imageUrl(slug) {
   return `${API_BASE}/photos/${slug}.webp`;
