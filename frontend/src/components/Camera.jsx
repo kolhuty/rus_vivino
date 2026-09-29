@@ -68,7 +68,7 @@ function Camera() {
     }
 
     return (
-        <main id="camera-screen">
+        <>
             <div id="camera-hint-container">
                 <p id="camera-hint">
                     {cameraError || "Поместите бутылку внутрь рамки, этикеткой к камере"}
@@ -109,7 +109,7 @@ function Camera() {
             </div>
     
             <input ref={fileRef} type="file" accept="image/*" hidden onChange={onFilePick} />
-        </main>
+        </>
     );
 }
 
