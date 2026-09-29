@@ -11,7 +11,7 @@ export function imageUrl(slug) {
   return `${JSDELIVR_BASE}/data/vino/${slug}.webp`;
 }
 
-// main recognize func
+// main recognize function
 export async function recognize(imageFile) {
     const formData = new FormData();
     formData.append("image", imageFile);
