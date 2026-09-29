@@ -10,12 +10,16 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 WORKDIR /app
 
 COPY ml/requirements.txt ./requirements.txt
+
+RUN pip install --no-cache-dir torch --index-url https://download.pytorch.org/whl/cpu
+
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY ml/wine_recognition ./wine_recognition
 
-COPY data/artifacts/index.npz /app/artifacts/index.npz
+COPY artifacts/index.npz /app/artifacts/index.npz
 
 EXPOSE 8001
 
-CMD ["python", "-m", "uvicorn", "wine_recognition.api:app", "--host", "0.0.0.0", "--port", "8001", "--workers", "1"]
+CMD ["python", "-m", "uvicorn", "wine_recognition.api:app", \
+     "--host", "0.0.0.0", "--port", "8001", "--workers", "1"]
