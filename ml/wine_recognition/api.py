@@ -23,6 +23,15 @@ async def lifespan(app: FastAPI):
 app = FastAPI(title="Wine visual retrieval", lifespan=lifespan)
 
 
+@app.get("/")
+@app.get("/health")
+async def health():
+    """Liveness + readiness: сервер поднялся и модель загружена."""
+    if not hasattr(app.state, "recognizer"):
+        raise HTTPException(503, "model is still loading")
+    return {"status": "ok"}
+
+
 async def predict_upload(image: UploadFile, diagnostic: bool):
     try:
         payload = await image.read(MAX_BYTES + 1)
