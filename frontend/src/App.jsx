@@ -8,12 +8,10 @@ import './styles/App.css'
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>  // lets say camera app opens at root "/" 
-        <Route path="/" element={<Camera />} />
-        <Route path="/sommelier" element={<Sommelier />} />
-      </Routes>
-    </BrowserRouter>
+    <Routes> 
+      <Route path="/" element={<Camera />} />
+      <Route path="/sommelier" element={<Sommelier />} />
+    </Routes>
   )
 }
 
