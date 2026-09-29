@@ -2,10 +2,13 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
+
+const basePath = process.env.GITHUB_ACTIONS === 'true' ? '/rus_vivino/' : '/';
+
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: '/rus_vivino/',
+  base: basePath,
   server: {
     host: '0.0.0.0',
     port: 5173,
