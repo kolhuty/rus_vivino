@@ -367,6 +367,32 @@ Docker-конфигурация:
 docker compose config --quiet
 ```
 
+## Smoke-тест и прогрев API
+
+Два способа проверить, что backend и ML реально отвечают, — выбор зависит от того, как поднят стек.
+
+**Если backend/ML запущены локально (без Docker, см. «Локальный запуск без Docker»):**
+
+`scripts/test_ml.sh` и `scripts/warmup.sh` стучатся на `127.0.0.1:8000`/`:8001` с хост-машины — подходит, когда backend и ML запущены как обычные процессы (`python app.py`, `uvicorn ...`).
+
+```bash
+./scripts/test_ml.sh
+./scripts/warmup.sh
+```
+
+Первым аргументом можно передать путь к своему фото, вторым/третьим — другие адреса backend/ML.
+
+**Если стек поднят через `docker compose up`:**
+
+Backend и ML внутри Docker Compose не публикуют порты наружу (см. «Быстрый запуск через Docker»), поэтому `test_ml.sh`/`warmup.sh` с хоста до них не достучатся. Для этого случая — версии `test_ml_docker.sh`/`warmup_docker.sh`, которые запускаются изнутри контейнера `backend` через `docker compose exec` (curl в образах нет, поэтому они используют `requests`, а тестовое фото встроено в сам скрипт, а не читается с диска):
+
+```bash
+docker compose exec -T backend sh -c "$(cat scripts/test_ml_docker.sh)"
+docker compose exec -T backend sh -c "$(cat scripts/warmup_docker.sh)"
+```
+
+`warmup_docker.sh` стоит прогнать перед демонстрацией/проверкой жюри — у ML-сервиса `start_period: 180s` в `docker-compose.yml`, и первый инференс после холодного старта может не уложиться в целевой SLA (3 секунды).
+
 ## Структура репозитория
 
 ```text
@@ -378,8 +404,10 @@ ml/
   wine_recognition/       SigLIP, локализатор, индекс, API и CLI
 scripts/
   evaluate.py             оценка качества и скорости
-  test_ml.sh              smoke-тест ML API
-  warmup.sh               прогрев сервиса
+  test_ml.sh              smoke-тест ML API (с хоста, без Docker)
+  warmup.sh               прогрев сервиса (с хоста, без Docker)
+  test_ml_docker.sh        smoke-тест через docker compose exec
+  warmup_docker.sh         прогрев через docker compose exec
 artifacts/
   index.npz               поисковый индекс
 data/                     каталог, эталоны и тестовые данные
