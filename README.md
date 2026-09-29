@@ -367,6 +367,26 @@ Docker-конфигурация:
 docker compose config --quiet
 ```
 
+## Smoke-тест и прогрев API
+
+`backend` и `ml` публикуют порты на `127.0.0.1` (`8000` и `8001` соответственно) — доступны с хост-машины напрямую, даже когда подняты через `docker compose up`.
+
+```bash
+./scripts/test_ml.sh
+./scripts/warmup.sh
+```
+
+Первым аргументом можно передать путь к своему фото, вторым/третьим — другие адреса backend/ML.
+
+`warmup.sh` стоит прогнать перед демонстрацией/проверкой жюри — у ML-сервиса `start_period: 240s` в `docker-compose.yml`, и первый инференс после холодного старта может не уложиться в целевой SLA (3 секунды).
+
+**Если понадобится гонять проверку изнутри самого контейнера** (например, порты по какой-то причине недоступны с хоста) — есть альтернативные версии `test_ml_docker.sh`/`warmup_docker.sh`, без зависимости от `curl` и смонтированных файлов:
+
+```bash
+docker compose exec -T backend sh -c "$(cat scripts/test_ml_docker.sh)"
+docker compose exec -T backend sh -c "$(cat scripts/warmup_docker.sh)"
+```
+
 ## Структура репозитория
 
 ```text
@@ -378,8 +398,10 @@ ml/
   wine_recognition/       SigLIP, локализатор, индекс, API и CLI
 scripts/
   evaluate.py             оценка качества и скорости
-  test_ml.sh              smoke-тест ML API
-  warmup.sh               прогрев сервиса
+  test_ml.sh              smoke-тест ML API (с хоста, без Docker)
+  warmup.sh               прогрев сервиса (с хоста, без Docker)
+  test_ml_docker.sh        smoke-тест через docker compose exec
+  warmup_docker.sh         прогрев через docker compose exec
 artifacts/
   index.npz               поисковый индекс
 data/                     каталог, эталоны и тестовые данные

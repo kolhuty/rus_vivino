@@ -63,9 +63,9 @@ py -3 -m venv .venv
 ## Загрузка фото через HTTP
 
 ```powershell
-.\.venv\Scripts\python.exe -m uvicorn wine_recognition.api:app --host 127.0.0.1 --port 8000
-curl.exe -F "image=@C:\photos\wine.jpg" http://127.0.0.1:8000/v1/eval/predict -o prediction.json
-curl.exe -F "image=@C:\photos\wine.jpg" http://127.0.0.1:8000/v1/predict -o diagnostics.json
+.\.venv\Scripts\python.exe -m uvicorn wine_recognition.api:app --host 127.0.0.1 --port 8001
+curl.exe -F "image=@C:\photos\wine.jpg" http://127.0.0.1:8001/v1/eval/predict -o prediction.json
+curl.exe -F "image=@C:\photos\wine.jpg" http://127.0.0.1:8001/v1/predict -o diagnostics.json
 ```
 
 Multipart-поле: `image`; JPEG/PNG, до 15 МиБ и 25 млн пикселей. EXIF-ориентация учитывается.
