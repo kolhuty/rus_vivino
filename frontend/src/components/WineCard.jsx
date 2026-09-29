@@ -18,7 +18,7 @@ function WineCard({ data }) {
         <>
         <div id="navbar">
             <a href="https://vino-svoe.ru/" id="top-logo-container">
-                <img src="/assets/logo-full.svg" id="top-logo"/>
+                <img src={`${import.meta.env.BASE_URL}assets/logo-full.svg`} id="top-logo"/>
             </a>
             <div id="nav-buttons">
                 <button id="search" className="nav-button">
@@ -48,7 +48,7 @@ function WineCard({ data }) {
                 </div>
                 <div id="sommelier-content">
                     <a href="/sommelier" id="sommelier-button">
-                        <img src="/assets/star-particles.svg" alt="" />
+                        <img src={`${import.meta.env.BASE_URL}assets/star-particles.svg`} alt="" />
                         <p>Цифровой сомелье</p>
                     </a>
                     <p>Узнайте, какое вино лучше всего подойдёт под ваши блюда или предпочтения</p>
@@ -91,7 +91,7 @@ function WineCard({ data }) {
                 </a>
                 <a href="https://www.rshb.ru/pd-policy">Политика обработки персональных данных</a>
                 <p>© Своё Вино, Россельхозбанк</p>
-                <img src="/assets/rshb-logo.svg" alt="Россельхозбанк" />
+                <img src={`${import.meta.env.BASE_URL}assets/rshb-logo.svg`} alt="Россельхозбанк" />
             </div>
             <div id="footer-second">
                 <p id="large-number">18+</p>

@@ -35,10 +35,10 @@ function BottleImage({ slug, src, alt = "" }) {
                 </div>
             )}
             {state === "error" ? (
-                <img src="/assets/bottle-placeholder.png" alt={alt} className="bottle-img" />
+                <img src={`${import.meta.env.BASE_URL}assets/bottle-placeholder.png`} alt={alt} className="bottle-img" />
             ) : (
                 <img
-                    src={src || imageUrl(slug)}
+                    src={imageUrl(slug)}
                     alt={alt}
                     className="bottle-img"
                     style={{ visibility: state === "ready" ? "visible" : "hidden" }}

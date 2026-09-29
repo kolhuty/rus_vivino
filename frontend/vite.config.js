@@ -5,9 +5,7 @@ import react from '@vitejs/plugin-react'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-
-  base: process.env.GITHUB_PAGES === 'true' ? '/rus_vivino/' : '/',
-
+  base: '/rus_vivino/',
   server: {
     host: '0.0.0.0',
     port: 5173,
